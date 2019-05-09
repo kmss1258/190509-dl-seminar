@@ -75,6 +75,8 @@ model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy']
 
 # 5. 모델 학습시키기
 model.fit(x_train, y_train, epochs=1500, batch_size=64)
+# 만약, validation(검증) 셋을 넣고 싶다고 하면, 입력값과 동일한 차원의 데이터 셋을 model.fit(..., validation_data=(x_val, y_val)) 넣어주면 된다.
+# validation의 경우, 학습에 반영이 되지 않고, 그냥 중간 평가 정도만 되는거고 실제로 학습되는건 test 셋에 의해 학습이 되어진다. 인터레스팅... 
 
 # 6. 모델 평가하기
 scores = model.evaluate(x_test, y_test)
