@@ -75,11 +75,12 @@ model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy']
 
 # 5. 모델 학습시키기
 model.fit(x_train, y_train, epochs=1500, batch_size=64)
-# 만약, validation(검증) 셋을 넣고 싶다고 하면, 입력값과 동일한 차원의 데이터 셋을 model.fit(..., validation_data=(x_val, y_val)) 넣어주면 된다.
-# validation의 경우, 학습에 반영이 되지 않고, 그냥 중간 평가 정도만 되는거고 실제로 학습되는건 test 셋에 의해 학습이 되어진다. 인터레스팅... 
+ # 만약, validation(검증) 셋을 넣고 싶다고 하면, 입력값과 동일한 차원의 데이터 셋을 model.fit(..., validation_data=(x_val, y_val)) 넣어주면 된다.
+ # validation의 경우, 학습에 반영이 되지 않고, 그냥 중간 평가 정도만 되는거고 실제로 학습되는건 입력된 값들에 의해 학습이 되어진다. 인터레스팅... 
 
 # 6. 모델 평가하기
 scores = model.evaluate(x_test, y_test)
+ # 모델에 반영이 되지 않고 
 print("%s: %.2f%%" %(model.metrics_names[1], scores[1]*100))
 ```
 
@@ -91,3 +92,11 @@ print("%s: %.2f%%" %(model.metrics_names[1], scores[1]*100))
 
 > 보통은 a 셋을 채택하지만, 시험셋이 일정한 결과라고 보장되는 경우에는 b 셋으로 해도 됨. 결국 정답은 없음.
 
+
+검증 셋을 어떻게 구성 해야하는가
+---------
+
+```
+김태영 대표님의 의견으로는, 검증셋의 경우 모델 만드는 개발자가 구성 해야 하는 것이 아닌 해당 모델을 실제로 적용 시키는 분야의 전문가에게 맡겨야 한다고 생각한다. 
+엔지니어의 경우에는 제 멋대로 데이터를 구성하여 정확도를 충분히 올릴 수 있기 때문에 해당 분야의 전문가가 확실히 검증이 될만 한 데이터 셋으로 구성해야한다고 이야기 하신다.
+```
