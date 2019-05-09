@@ -80,3 +80,10 @@ model.fit(x_train, y_train, epochs=1500, batch_size=64)
 scores = model.evaluate(x_test, y_test)
 print("%s: %.2f%%" %(model.metrics_names[1], scores[1]*100))
 ```
+
+각 분리된 세트의 정확도 별 모델 선정 기준
+------
+> 모델 훈련셋 검증셋 시험셋 <br> 
+> a ->  94     80    70 <br>
+> b ->  70     70    90 <br>
+
