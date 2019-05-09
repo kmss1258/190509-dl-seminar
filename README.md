@@ -19,4 +19,4 @@ batch Gradient Descent
 
 Jupyter도 커맨드 모드가 됐구나?
 ----------
- <code> # Install Keras pip </code>
+ <code> 코드 앞에 !(느낌표) 넣으면 된다. </code>
