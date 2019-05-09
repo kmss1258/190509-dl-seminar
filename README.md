@@ -173,3 +173,9 @@ y_train = y_train[:50000,:] # add
 hist = model.fit(x_train, y_train, epochs=10, batch_size=32, validation_data=(x_val, y_val))
 ```
 
+colab GPU 사용
+------
+
+> 런타임 - 런타임 유형 변경 - GPU or TPU <br>
+> 근데 그렇게 시간적으로는 큰 차이는 없는 듯 하다. GPU 사용한다고 안 알려줘서 그런가?
+
