@@ -103,7 +103,7 @@ print("%s: %.2f%%" %(model.metrics_names[1], scores[1]*100))
 해당 분야의 전문가가 확실히 검증이 될만 한 데이터 셋으로 구성해야한다고 이야기 하신다.
 
 
-MNIST 데이터
+MNIST 데이터 학습
 ----------
 
 > code는 아래와 같다.
@@ -118,6 +118,7 @@ from keras.layers import Dense, Activation
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 x_train = x_train.reshape(60000, 784).astype('float32') / 255.0
 x_test = x_test.reshape(10000, 784).astype('float32') / 255.0
+
 y_train = np_utils.to_categorical(y_train)
 y_test = np_utils.to_categorical(y_test)
 
@@ -130,7 +131,7 @@ model.add(Dense(units=10, activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
 
 # 4. 모델 학습시키기
-hist = model.fit(x_train, y_train, epochs=5, batch_size=32)
+hist = model.fit(x_train, y_train, epochs=1, batch_size=32, validation_data=(x_val, y_val))
 
 # 5. 학습과정 살펴보기
 print('## training loss and acc ##')
@@ -148,3 +149,27 @@ yhat = model.predict(xhat)
 print('## yhat ##')
 print(yhat)
 ```
+
+> 만약에 validation data를 삽입하고 싶다면 아래와 같이 하면 된다.
+
+```
+# 1. 데이터셋 생성하기
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+x_train = x_train.reshape(60000, 784).astype('float32') / 255.0
+x_test = x_test.reshape(10000, 784).astype('float32') / 255.0
+
+x_val = x_train[50000:60000,:] # add
+x_train = x_train[:50000,:] # add
+
+y_train = np_utils.to_categorical(y_train)
+y_test = np_utils.to_categorical(y_test)
+
+
+y_val = y_train[50000:60000,:] # add
+y_train = y_train[:50000,:] # add
+```
+> 그리고, model.fit에 아래와 같이 파라미터를 입력하면 된다. 
+```
+hist = model.fit(x_train, y_train, epochs=10, batch_size=32, validation_data=(x_val, y_val))
+```
+
